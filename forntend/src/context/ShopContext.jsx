@@ -81,7 +81,10 @@ if (token) {
     let totalAmount = 0;
     for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
-      
+      if (!itemInfo) {
+        console.warn(`Product not found for _id: ${items}`);
+        continue; // Skip this item if product data is missing
+      }
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
@@ -146,7 +149,7 @@ const getusercart=async(token)=>{
     getCartAmount,
     navigate,
     backendUrl,
-    token,setToken
+    token,setToken,setcartItems
   };
 
   return (
